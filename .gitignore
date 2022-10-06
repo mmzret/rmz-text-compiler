@@ -1,1 +1,4 @@
 /target
+*.gba
+tmp.py
+*.zt
