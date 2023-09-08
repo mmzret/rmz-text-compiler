@@ -1,8 +1,6 @@
 # rmz-text-compiler
 
-Text compiler for Rockman Zero.
-
-今のところ、ゼロ3のみ対応
+Text compiler for Rockman Zero. (currently, support Zero 3 only)
 
 ```txt
 <ルージュ>
@@ -91,6 +89,6 @@ prefix
 
 ## 注意
 
-- ファイルの終端に余計な空行がないようにすること
-- NEXT(`▼`)の次にはインデントが無い空行を置く事
-- 複数テキストを1ファイルにまとめたいときは、`#`行で区切る(インデントなし)
+- ファイルの終端に余計な空行がないようにすること(Ensure that there are no extra empty lines at the end of the file.)
+- NEXT(`▼`)の次にはインデントが無い空行を置く事(A empty line with no indentation should be placed after NEXT (`▼`).)
+- 複数テキストを1ファイルにまとめたいときは、`#`行で区切る(インデントなし) (To combine multiple texts into one file, separate them with a `#` line(No indent))

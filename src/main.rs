@@ -9,8 +9,8 @@ use std::{
 
 use clap::Parser;
 use constants::{
-    ANSWER, BOTTOM, CHARMAP, FACTORY, LF, MUGSHOT, MUGSHOTS, NEXT, OCCASION, RED, RETURN, TOP,
-    WHITE,
+    ANSWER, BOTTOM, CHARMAP, FACTORY, INSERT, LF, MUGSHOT, MUGSHOTS, NEXT, OCCASION, RED, RETURN,
+    TOP, WHITE,
 };
 
 /// Simple program to greet a person
@@ -67,6 +67,7 @@ struct Compiler {
     answer: u8,
     _indent: i32,
     chat: bool,
+    insert: bool,
 }
 
 impl Compiler {
@@ -75,6 +76,7 @@ impl Compiler {
             answer: 0,
             _indent: 2,
             chat: chat,
+            insert: false,
         };
     }
 
@@ -99,8 +101,17 @@ impl Compiler {
         let size = input.chars().count();
         for i in 0..(size) {
             let c = input.chars().nth(i).unwrap();
-            if c == '<' {
-                skip = 0;
+            match c {
+                '<' => skip = 0,
+                '}' => {
+                    self.insert = false;
+                    continue;
+                }
+                _ => {}
+            }
+
+            if self.insert {
+                continue;
             }
 
             if skip > 0 {
@@ -120,6 +131,12 @@ impl Compiler {
                         if check(input, i + 1, '\n') && self.chat {
                             skip = self.indent() + 1;
                         }
+                    }
+
+                    '{' => {
+                        self.insert = true;
+                        buffer.push(INSERT);
+                        return;
                     }
 
                     '\n' => {
